@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Mob;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 public class PrerequisiteFacing implements PrerequisiteBase {
@@ -55,8 +55,8 @@ public class PrerequisiteFacing implements PrerequisiteBase {
 	public boolean prerequisiteMet(QuestContext context) {
 		final Location entityLoc;
 		Entity entity = context.getEntityUsedForPrerequisites();
-		if (entity instanceof Mob) {
-			entityLoc = ((Mob) entity).getEyeLocation();
+		if (entity instanceof LivingEntity le) {
+			entityLoc = le.getEyeLocation();
 		} else {
 			entityLoc = entity.getLocation();
 		}
