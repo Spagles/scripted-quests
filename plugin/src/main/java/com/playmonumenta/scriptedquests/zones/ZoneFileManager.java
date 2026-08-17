@@ -123,6 +123,7 @@ public class ZoneFileManager {
 
 		zoneManager.bulkPluginZoneNamespaceChanges(newNamespaces, replacedNamespaces, removedNamespaces).join();
 
+		reloadingState.mOwnNamespaces.putAll(ownNamespaces);
 		mActiveState = reloadingState;
 
 		mReloadRequesters.sendMessage(Component.text("Zone files reloaded successfully.", NamedTextColor.GOLD));
