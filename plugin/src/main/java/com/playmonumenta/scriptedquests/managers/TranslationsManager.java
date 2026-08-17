@@ -275,7 +275,7 @@ public class TranslationsManager implements Listener {
 		translations.put("ts", LocalDate.now(ZoneId.of("UTC")).toString());
 
 		String lang = mPlayerLanguageMap.get(player.getUniqueId());
-		if (lang == null || lang.equals("en.US")) {
+		if (lang == null || lang.equals("en-US")) {
 			// base language, no need to translate
 			return message;
 		}
