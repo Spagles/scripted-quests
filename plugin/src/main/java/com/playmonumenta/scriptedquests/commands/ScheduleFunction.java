@@ -126,11 +126,10 @@ public class ScheduleFunction {
 				Iterator<DelayedFunction> it = functions.iterator();
 				while (it.hasNext()) {
 					DelayedFunction testFunction = it.next();
-					if (testFunction.mTargetTick > targetTick) {
-						break;
+					if (testFunction.mTargetTick <= targetTick) {
+						testFunction.setCancelled();
+						it.remove();
 					}
-					testFunction.setCancelled();
-					it.remove();
 				}
 			}
 			addDelayedFunction(delayedFunction);
@@ -185,14 +184,8 @@ public class ScheduleFunction {
 		@Override
 		public void run() {
 			int currentTick = Bukkit.getCurrentTick();
-			Iterator<DelayedAction> it = mActions.iterator();
-			while (it.hasNext()) {
-				DelayedAction entry = it.next();
-
-				if (entry.mTargetTick > currentTick) {
-					break;
-				}
-
+			while (!mActions.isEmpty() && mActions.peek().mTargetTick <= currentTick) {
+				DelayedAction entry = mActions.poll();
 				mActionsToRun.add(entry);
 				if (entry instanceof DelayedFunction delayedFunction) {
 					CommandSender sender = delayedFunction.mSender;
@@ -207,7 +200,6 @@ public class ScheduleFunction {
 					}
 				}
 				MMLog.debug("Preparing to run " + entry);
-				it.remove();
 			}
 
 			for (DelayedAction entry : mActionsToRun) {
