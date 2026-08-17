@@ -54,8 +54,10 @@ public final class GuiPage {
 		JsonObjectBuilder builder = new JsonObjectBuilder()
 			.add("rows", mRows)
 			.add("title", mTitle)
-			.add("filler_item", NBTItem.convertItemtoNBT(mFillerItem).toString())
 			.add("items", JsonUtils.toJsonArray(mItems, GuiItem::toJson));
+		if (mFillerItem != null) {
+			builder.add("filler_item", NBTItem.convertItemtoNBT(mFillerItem).toString());
+		}
 		if (mCloseActionsJson != null) {
 			builder.add("close_actions", mCloseActionsJson);
 		}
