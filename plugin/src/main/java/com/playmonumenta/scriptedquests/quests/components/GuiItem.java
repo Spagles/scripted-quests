@@ -131,7 +131,7 @@ public class GuiItem {
 					mNbtTagsJson = null;
 				} else {
 					NbtTags tags = new NbtTags(mNbtTagsJson);
-					mNbtTags = tags.hasTags() ? mNbtTags : null;
+					mNbtTags = tags.hasTags() ? tags : null;
 				}
 			}
 			String leftClickActions = sqguiCompound.getString(LEFT_CLICK_ACTIONS_KEY);
