@@ -9,11 +9,12 @@ import com.playmonumenta.scriptedquests.quests.QuestDeath.DeathActions;
 import com.playmonumenta.scriptedquests.quests.components.DeathLocation;
 import com.playmonumenta.scriptedquests.trades.NpcTrader;
 import com.playmonumenta.scriptedquests.utils.MetadataUtils;
-import com.playmonumenta.scriptedquests.zones.ZoneManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,6 +28,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -229,6 +231,13 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	public void playerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
+		if (!Plugin.isInitialized()) {
+			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("That shard is still loading, try again soon!", NamedTextColor.YELLOW));
+		}
+	}
+
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
 	public void playerJoinEvent(PlayerJoinEvent event) {
 		// Handle login quest events
@@ -248,9 +257,6 @@ public class PlayerListener implements Listener {
 
 		// Stop racing (if applicable)
 		mPlugin.mRaceManager.cancelRace(player);
-
-		// Remove all zone properties from the player
-		ZoneManager.getInstance().unregisterPlayer(player);
 
 		// Stop any scheduled music for this player
 		SongManager.onLogout(player);
