@@ -130,7 +130,7 @@ public class RaceFactory {
 			//ringless entry is not present at all in a lot of races.
 			mRingless = false;
 		} else {
-			mRingless = showStats.getAsBoolean();
+			mRingless = ringless.getAsBoolean();
 		}
 
 		// max_distance
