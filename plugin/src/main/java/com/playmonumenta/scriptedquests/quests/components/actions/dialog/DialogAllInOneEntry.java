@@ -53,12 +53,12 @@ public class DialogAllInOneEntry implements DialogBase {
 					}
 
 					if (clickEnt.getKey().equals("click_command")) {
-						ClickEvent event = ClickEvent.runCommand(value.getAsString());
+						ClickEvent event = ClickEvent.runCommand(clickEnt.getValue().getAsString());
 						mComponent = mComponent.clickEvent(event);
 					}
 
 					if (clickEnt.getKey().equals("click_url")) {
-						ClickEvent event = ClickEvent.openUrl(value.getAsString());
+						ClickEvent event = ClickEvent.openUrl(clickEnt.getValue().getAsString());
 						mComponent = mComponent.clickEvent(event);
 					}
 				}
