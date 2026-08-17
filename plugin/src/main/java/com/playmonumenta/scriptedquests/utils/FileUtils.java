@@ -65,7 +65,6 @@ public class FileUtils {
 		}
 
 		Files.move(tempFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		tempFile.renameTo(file);
 	}
 
 
