@@ -62,8 +62,8 @@ public class BasicStandardWriter<T> implements IStandardByteWriter {
 
 	@Override
 	public void write(String s) throws IOException {
-		write(s.length());
 		byte[] ba = s.getBytes(StandardCharsets.UTF_8);
+		write(ba.length);
 		mWriter.write(mInstance, ba);
 	}
 

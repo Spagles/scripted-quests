@@ -39,7 +39,7 @@ public interface IStandardByteWriter {
 	void write(long l) throws IOException;
 
 	/**
-	 * Writes s.length() as integer, then the rest of the buffer
+	 * Writes the byte length of the UTF-8 encoded string as an integer, then the encoded byte buffer
 	 * @param s String to write
 	 * @throws IOException Underlying IO error
 	 */
